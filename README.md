@@ -6,7 +6,7 @@ Once DDEV’s installed, setting up a new project should be quick:
 4) Run `ddev launch` to open your project in a browser.
 5) Run `ddev composer install` to install dependencies.
 5) Run `ddev drush cim` to import Drupal configuration.
-This should enable the two custom modules for you.
+This should enable the ``two custom modules for you.
 
 The custom modules can be found at ***web/modules/custom/*** and are named `basic_article` and `mini_rest`.
 
