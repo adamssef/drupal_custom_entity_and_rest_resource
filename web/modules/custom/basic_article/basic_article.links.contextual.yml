@@ -1,0 +1,10 @@
+entity.basic_article.edit_form:
+  route_name: entity.basic_article.edit_form
+  group: basic_article
+  title: Edit
+
+entity.basic_article.delete_form:
+  route_name: entity.basic_article.delete_form
+  group: basic_article
+  title: Delete
+  weight: 10

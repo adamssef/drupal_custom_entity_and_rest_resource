@@ -1,0 +1,5 @@
+entity.basic_article_type.collection:
+  title: 'Basic article types'
+  description: 'Manage and CRUD actions on Basic article type.'
+  parent: system.admin_structure
+  route_name: entity.basic_article_type.collection

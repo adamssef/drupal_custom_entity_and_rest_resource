@@ -1,0 +1,5 @@
+name: Basic Articles
+type: module
+description: 'Custom entity for basic_entity module.'
+core_version_requirement: ^9
+package: Custom

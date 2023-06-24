@@ -1,0 +1,12 @@
+basic_article.basic_article_type.*:
+  type: config_entity
+  label: 'Basic article type config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string

@@ -1,0 +1,97 @@
+<?php
+
+/**
+ * @file
+ * Provides a basic article entity type.
+ */
+
+use Drupal\basic_article\ExtendedArticle;
+use Drupal\Core\Render\Element;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_entity_bundle_info_alter().
+ */
+function basic_article_entity_bundle_info_alter(array &$bundles): void {
+  if (isset($bundles['basic_article'])) {
+    // We want to apply ExtendedArticle class to the article bundle so that it
+    // is possible to use custom methods and encapsulate business logic in the
+    // more reusable-and-object-oriented way.
+    $bundles['basic_article']['basic_article_type_1']['label'] = t('Basic article');
+    $bundles['basic_article']['basic_article_type_1']['class'] = ExtendedArticle::class;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function basic_article_theme() {
+  return [
+    'basic_article' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for basic article templates.
+ *
+ * Default template: basic-article.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the basic article information
+ *     and any fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_basic_article(array &$variables) {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+function basic_article_user_cancel($edit, UserInterface $account, $method) {
+  switch ($method) {
+    case 'user_cancel_block_unpublish':
+      // Unpublish basic articles.
+      $storage = \Drupal::entityTypeManager()->getStorage('basic_article');
+      $basic_article_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->condition('status', 1)
+        ->execute();
+      foreach ($storage->loadMultiple($basic_article_ids) as $basic_article) {
+        $basic_article->set('status', FALSE);
+        $basic_article->save();
+      }
+      break;
+
+    case 'user_cancel_reassign':
+      // Anonymize basic articles.
+      $storage = \Drupal::entityTypeManager()->getStorage('basic_article');
+      $basic_article_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->execute();
+      foreach ($storage->loadMultiple($basic_article_ids) as $basic_article) {
+        $basic_article->setOwnerId(0);
+        $basic_article->save();
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for user entities.
+ */
+function basic_article_user_predelete(UserInterface $account) {
+  // Delete basic articles.
+  $storage = \Drupal::entityTypeManager()->getStorage('basic_article');
+  $basic_article_ids = $storage->getQuery()
+    ->condition('uid', $account->id())
+    ->execute();
+  $basic_articles = $storage->loadMultiple($basic_article_ids);
+  $storage->delete($basic_articles);
+}

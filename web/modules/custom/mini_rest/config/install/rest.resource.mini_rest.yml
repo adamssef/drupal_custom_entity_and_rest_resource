@@ -1,0 +1,10 @@
+id: mini_rest
+plugin_id: mini_rest_plugin
+granularity: resource
+configuration:
+  methods:
+    - GET
+  formats:
+    - json
+  authentication:
+    - basic_auth
