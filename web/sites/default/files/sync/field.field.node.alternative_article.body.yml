@@ -1,0 +1,23 @@
+uuid: 9cedb1f7-2d65-46a0-a5a4-bbd6f0935674
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.alternative_article
+  module:
+    - text
+id: node.alternative_article.body
+field_name: body
+entity_type: node
+bundle: alternative_article
+label: Description
+description: 'This is where article content is stored and presented.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+field_type: text_with_summary

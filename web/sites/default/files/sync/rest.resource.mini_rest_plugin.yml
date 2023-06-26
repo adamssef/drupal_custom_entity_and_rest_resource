@@ -1,0 +1,18 @@
+uuid: 0ad427c9-4fc4-465e-b74d-b63c03a9d15c
+langcode: en
+status: true
+dependencies:
+  module:
+    - basic_auth
+    - mini_rest
+    - serialization
+id: mini_rest_plugin
+plugin_id: mini_rest_plugin
+granularity: resource
+configuration:
+  methods:
+    - GET
+  formats:
+    - json
+  authentication:
+    - basic_auth

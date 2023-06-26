@@ -1,0 +1,6 @@
+uuid: 4c0b26ed-f122-44d0-b199-c0fafbfbac5e
+langcode: en
+status: true
+dependencies: {  }
+id: basic_article_type_1
+label: 'Basic Article - type 1'

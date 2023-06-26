@@ -1,0 +1,38 @@
+uuid: d85b7553-83dd-4376-a106-5c51118fee4f
+langcode: en
+status: true
+dependencies:
+  config:
+    - basic_article.basic_article_type.basic_article_type_1
+    - field.storage.basic_article.field_image
+  module:
+    - image
+id: basic_article.basic_article_type_1.field_image
+field_name: field_image
+entity_type: basic_article
+bundle: basic_article_type_1
+label: Image
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: 640x480
+  min_resolution: ''
+  alt_field: true
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: 07b6fd8a-1f9d-49b8-80e8-4560dd95bcaf
+    alt: ''
+    title: ''
+    width: 278
+    height: 182
+field_type: image

@@ -1,0 +1,38 @@
+uuid: 3d188930-fea3-40c7-905a-37f8463521ce
+langcode: en
+status: true
+dependencies:
+  module:
+    - basic_article
+    - serialization
+    - user
+_core:
+  default_config_hash: toPPjFmnsfDVOj5lZ8u7U2DU-VU8VxhNNmgL2u6H7hE
+id: entity.basic_article
+plugin_id: 'entity:basic_article'
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - json
+      - xml
+    supported_auth:
+      - cookie
+  POST:
+    supported_formats:
+      - json
+      - xml
+    supported_auth:
+      - cookie
+  PATCH:
+    supported_formats:
+      - json
+      - xml
+    supported_auth:
+      - cookie
+  DELETE:
+    supported_formats:
+      - json
+      - xml
+    supported_auth:
+      - cookie
