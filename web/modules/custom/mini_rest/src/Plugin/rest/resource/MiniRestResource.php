@@ -2,7 +2,7 @@
 
 namespace Drupal\mini_rest\Plugin\rest\resource;
 
-use Drupal\basic_article\ExtendedArticle;
+use Drupal\basic_article\Article;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
@@ -86,27 +86,28 @@ class MiniRestResource extends ResourceBase {
    *   The response.
    */
   public function get() {
-    $storage = $this->entityTypeManager->getStorage('basic_article');
-    $ids = \Drupal::entityQuery('basic_article')->execute();
-    $articles = $storage->loadMultiple($ids);
+    $articles = $this->entityTypeManager->getStorage('node')->loadByProperties(['type' => 'article']);
     $response_content = [];
 
     foreach ($articles as $article) {
       $item_to_be_returned = [];
-      if ($article instanceof ExtendedArticle) {
+      if ($article instanceof Article) {
         // Clearly - more complex logic can be implemented in below methods.
         $item_to_be_returned['id'] = $article->getArticleId();
-        $item_to_be_returned['description'] = $article->getArticleDescription();
+        $item_to_be_returned['description'] = $article->get('body')->value;
         $item_to_be_returned['path'] = $article->getArticlePath();
         $item_to_be_returned['title'] = $article->getArticleTitle();
-        $item_to_be_returned['image'] = $article->getArticleImage() === NULL ?? $article->getArticleImage();
+        $item_to_be_returned['image'] = $article->getArticleImage();
         $item_to_be_returned['bundle'] = $article->bundle();
         $response_content[] = $item_to_be_returned;
       }
     }
 
     $response = new ResourceResponse($response_content);
-    $response->addCacheableDependency($articles);
+
+    foreach ($articles as $article) {
+      $response->addCacheableDependency($article);
+    }
 
     return $response;
   }

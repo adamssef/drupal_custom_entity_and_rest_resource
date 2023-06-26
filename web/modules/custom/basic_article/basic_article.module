@@ -5,7 +5,7 @@
  * Provides a basic article entity type.
  */
 
-use Drupal\basic_article\ExtendedArticle;
+use Drupal\basic_article\Article;
 use Drupal\Core\Render\Element;
 use Drupal\user\UserInterface;
 
@@ -13,12 +13,12 @@ use Drupal\user\UserInterface;
  * Implements hook_entity_bundle_info_alter().
  */
 function basic_article_entity_bundle_info_alter(array &$bundles): void {
-  if (isset($bundles['basic_article'])) {
+  if (isset($bundles['node'])) {
     // We want to apply ExtendedArticle class to the article bundle so that it
     // is possible to use custom methods and encapsulate business logic in the
     // more reusable-and-object-oriented way.
-    $bundles['basic_article']['basic_article_type_1']['label'] = t('Basic article');
-    $bundles['basic_article']['basic_article_type_1']['class'] = ExtendedArticle::class;
+    $bundles['node']['article']['label'] = t('Article (extended)');
+    $bundles['node']['article']['class'] = Article::class;
   }
 }
 
