@@ -5,6 +5,7 @@ namespace Drupal\basic_article;
 use Drupal\node\Entity\Node;
 
 class Article extends Node {
+
   /**
    * Returns the article id.
    *
@@ -81,6 +82,7 @@ class Article extends Node {
     $uri = $this->get('field_image')?->entity?->getFileUri();
 
     // I checked this - it returns link to a cropped version of a file:)
+    // @todo Implement stream_wrapper_manager as a service with dependency injection.
     if ($wrapper = \Drupal::service('stream_wrapper_manager')->getViaUri($uri)) {
       return $wrapper->getExternalUrl();
     }

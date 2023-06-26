@@ -23,20 +23,6 @@ use \Symfony\Component\DependencyInjection\ContainerInterface;
 class MiniRestResource extends ResourceBase {
 
   /**
-   * The available serialization formats.
-   *
-   * @var array
-   */
-  protected $serializerFormats = [];
-
-  /**
-   * A logger instance.
-   *
-   * @var \Psr\Log\LoggerInterface
-   */
-  protected $logger;
-
-  /**
    * The entity type manager.
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
@@ -86,6 +72,8 @@ class MiniRestResource extends ResourceBase {
    *   The response.
    */
   public function get() {
+
+    // It's eventually better to load article bundle and not to load all nodes (which was a terrible mistake):)
     $articles = $this->entityTypeManager->getStorage('node')->loadByProperties(['type' => 'article']);
     $response_content = [];
 
